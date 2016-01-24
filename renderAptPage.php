@@ -15,7 +15,6 @@ Author URI: http://www.localhost
 include 'simple_html_dom.php';
 
 function con ($content){
-    if(is_page('apteka')){
 
         echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">
         <p><input type="text" name="search"/>
@@ -26,14 +25,16 @@ function con ($content){
             $query = iconv('UTF-8', 'cp1251', $search);
             $textQuery = urlencode($query);
             $data = file_get_html('http://www.piluli.ru/search_result.html?searchback=' . $textQuery . '&search=' . $textQuery);
-            foreach($data->find('.ws-ih') as $a){
-                echo '<p class="medcine_name">' . $a->find('.p_name', 0)->plaintext . '</p><p class="cost">' . $a->find('.price', 0)->plaintext . '</p>';
+            if($data->find('.ws-ih')){
+                foreach($data->find('.ws-ih') as $a){
+                    echo '<p class="medcine_name">' . $a->find('.p_name', 0)->plaintext . '</p><p class="cost">' . $a->find('.price', 0)->plaintext . '</p>';
+                }
+            } else {
+                echo 'Такого препарата не найдено';
             }
+
             //return $content;
         }
-
-        return $content;
-    }
     return $content;
 }
 
