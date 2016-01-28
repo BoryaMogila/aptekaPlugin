@@ -45,7 +45,7 @@ function config_apteka(){
 function con ($content){
 
     if(is_page(get_option('mogila_pageName'))){
-        
+
         echo '<form method="get">
         <p><input type="text" name="medcine"/>
         <p><input type="submit" value="Пошук"></p>
@@ -61,7 +61,9 @@ function con ($content){
 
                 foreach($data->find('article.catalog-item') as $a){
 
-                    echo '<p class="medcine_name">' . $a->find('.h2-style', 0)->plaintext . ' <span class="cost">' . $a->find('.price', 0)->plaintext . '</span><br><span>' . $a->find('p.substances', 0)->plaintext . '</span></p>';
+                    echo '<p class="medcine_name">' . $a->find('.h2-style', 0)->plaintext .
+                         ' <span class="cost">' . $a->find('.price', 0)->plaintext . '</span><br>
+                         <span class="describe">' . $a->find('p.substances', 0)->plaintext . '</span></p>';
 
                 }
             } else {
